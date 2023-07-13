@@ -1,28 +1,24 @@
-const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql2/promise')
+const express = require("express");
+const cors = require("cors");
+const mysql = require("mysql2/promise");
 
 // create and config server
 const server = express();
 
-
 server.use(cors());
 server.use(express.json());
 
-
 // get connection
 
-
 const getConnection = async () => {
-    const connection = await mysql.createConnection( {
-        host: 'localhost', 
-        user: 'root', 
-        password: process.env.PASS,
-        database: 'netflix'
-
-    });
-    connection.connect();
-    return connection;
+  const connection = await mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: process.env.PASS,
+    database: "netflix",
+  });
+  connection.connect();
+  return connection;
 };
 
 // init express aplication
@@ -33,20 +29,18 @@ server.listen(serverPort, () => {
 
 // endpoints
 
-server.get('/movies', async (req, res) => {
-
-  const selectMovies = 'SELECT * FROM movies';
+server.get("/movies", async (req, res) => {
+  const selectMovies = "SELECT * FROM movies";
   const conn = await getConnection();
   const [results, cols] = await conn.query(selectMovies);
   console.log(results);
   conn.end();
-  res.json(results)
-})
+  res.json({
+    success: true,
+    movies: results,
+  });
+});
 
-/* {
-  success: true,
-  movies:  results
-}
-*/
- 
+// static server
 
+server.use(express.static("./src/public-react"));
