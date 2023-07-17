@@ -33,6 +33,7 @@ const App = () => {
   Se ejecuta cuando allMoviesOptionGenre o allMoviesOptionSort cambian de valor.
   Como queremos que el back devuelva las películas filtradas por género y ordenadas por nombre estamos pasando a getMoviesFromApi estos dos valores.
   */
+ /* LO QUE TENÍAMOS -------->
   useEffect(() => {
     const params = {
       genre: allMoviesOptionGenre,
@@ -43,7 +44,21 @@ const App = () => {
     setAppMovies(moviesData.movies);
 
   }, [allMoviesOptionGenre, allMoviesOptionSort, appMovies]);
+*/
 
+
+useEffect(() => {
+    const data = async ()=> {
+      const params = {
+        genre: allMoviesOptionGenre,
+        sort: allMoviesOptionSort,
+      };
+      const moviesData = await apiMovies.getMoviesFromApi();
+      console.log(moviesData);
+      setAppMovies(moviesData.movies);
+    }
+    data();
+  }, [allMoviesOptionGenre, allMoviesOptionSort]);
   /*
   useEffect: obtener el perfil de la usuaria.
   Se ejecuta cuando userId cambian de valor, es decir, cuando pasa de un string vacío a un strin relleno con el id de la usuaria.
