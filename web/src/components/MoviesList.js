@@ -21,7 +21,7 @@ const MoviesList = props => {
     return <p>No hay películas en este listado</p>;
   };
 
-  return props.movies.length ? renderMovieList() : renderEmptyList();
+  return props.movies ? renderMovieList() : renderEmptyList();
 };
 
 export default MoviesList;

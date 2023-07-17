@@ -38,10 +38,11 @@ const App = () => {
       genre: allMoviesOptionGenre,
       sort: allMoviesOptionSort
     };
-    apiMovies.getMoviesFromApi(params).then(response => {
-      setAppMovies(response.movies);
-    });
-  }, [allMoviesOptionGenre, allMoviesOptionSort]);
+    const moviesData =  apiMovies.getMoviesFromApi();
+    console.log(moviesData);
+    setAppMovies(moviesData.movies);
+
+  }, [allMoviesOptionGenre, allMoviesOptionSort, appMovies]);
 
   /*
   useEffect: obtener el perfil de la usuaria.

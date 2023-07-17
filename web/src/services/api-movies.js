@@ -9,6 +9,7 @@ const getMoviesFromApi = async () => {
   const response = await fetch('http://localhost:4000/movies');
   const data = await response.json();
   console.log(data);
+  return data;
 };
 
     /*.then(response => response.json())
