@@ -2,13 +2,16 @@
 
 //let moviesList = {[]};
 
-const getMoviesFromApi = async () => {
+const getMoviesFromApi = async (genre) => {
   console.log('Se están pidiendo las películas de la app');
+  //console.log(holi);
+  console.log(genre);
   /* 
+  
   CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC*/
-  const response = await fetch('http://localhost:4000/movies');
+  const response = await fetch(`http://localhost:4000/movies/?genre=${genre}`);
   const data = await response.json();
-  console.log(data);
+  
   return data;
 };
 
@@ -34,6 +37,8 @@ const getMoviesFromApi = async () => {
           }
         ]
       };*/
+
+    
     
     
     

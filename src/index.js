@@ -14,7 +14,7 @@ const getConnection = async () => {
   const connection = await mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: process.env.PASS,
+    password: "manzana12393",
     database: "netflix",
   });
   connection.connect();
@@ -30,17 +30,34 @@ server.listen(serverPort, () => {
 // endpoints
 
 server.get("/movies", async (req, res) => {
-  const selectMovies = "SELECT * FROM movies";
+  const genreFilterParam = req.query.genre;
+  
+
   const conn = await getConnection();
-  const [results, cols] = await conn.query(selectMovies);
-  console.log(results);
+  
+
+  if (genreFilterParam && genreFilterParam !== 'All') {
+    console.log('con parámetros');
+    const selectMovies = `SELECT * FROM movies WHERE genre=? `;
+    const [results] = await conn.query(selectMovies, genreFilterParam);
+    conn.end();
+    res.json({
+      success: true,
+      movies: results,
+    });
+  } else {
+  console.log('sin parametros');
+  const selectMovies = `SELECT * FROM movies  `;
+  const [results] = await conn.query(selectMovies);
   conn.end();
   res.json({
     success: true,
     movies: results,
-  });
+  });}
 });
 
 // static server
 
 server.use(express.static("./src/public-react"));
+server.use(express.static("./src/public-movies-images"));
+
