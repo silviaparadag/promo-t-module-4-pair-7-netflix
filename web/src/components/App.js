@@ -53,7 +53,7 @@ useEffect(() => {
         genre: allMoviesOptionGenre,
         sort: allMoviesOptionSort,
       };
-      const moviesData = await apiMovies.getMoviesFromApi(params.genre);
+      const moviesData = await apiMovies.getMoviesFromApi(params.genre, params.sort);
       console.log(moviesData);
       setAppMovies(moviesData.movies);
     }
